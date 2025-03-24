@@ -10,17 +10,7 @@ namespace QuizIt.ViewModels
 {
     public class MainViewModel
     {
-        public ObservableCollection<Deck> Decks { get; set; }
-
-        public MainViewModel()
-        {
-            Decks = new ObservableCollection<Deck>
-            {
-                new Deck { Name = "Angielski", FlashcardCount = 20 },
-                new Deck { Name = "Biologia", FlashcardCount = 15 },
-                new Deck { Name = "Geografia", FlashcardCount = 10 },
-            };
-        }
+        public ObservableCollection<Deck> Decks { get; set; } = new();
 
         public void AddDeck(string name)
         {
@@ -28,8 +18,7 @@ namespace QuizIt.ViewModels
             {
                 Decks.Add(new Deck
                 {
-                    Name = name,
-                    FlashcardCount = 0
+                    Name = name
                 });
             }
         }

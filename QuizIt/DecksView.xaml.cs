@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuizIt.Models;
 using QuizIt.ViewModels;
 
 namespace QuizIt.Views
@@ -28,6 +29,15 @@ namespace QuizIt.Views
             InitializeComponent();
             _viewModel = viewModel;
             DataContext = _viewModel;
+        }
+
+        private void DecksListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count > 0 && e.AddedItems[0] is Deck selectedDeck)
+            {
+                var mainWindow = App.Current.MainWindow as MainWindow;
+                mainWindow.MainContentControl.Content = new FlashcardsView(selectedDeck);
+            }
         }
     }
 }

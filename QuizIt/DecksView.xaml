@@ -7,6 +7,7 @@
         <TextBlock Text="Gotowy na naukę?" FontSize="16" Margin="0,0,0,20"/>
 
         <TextBlock Text="📂 Twoje fiszki:" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
-        <ListBox ItemsSource="{Binding Decks}" FontSize="16" Margin="0,0,0,20"/>
+        <ListBox ItemsSource="{Binding Decks}" FontSize="16" Margin="0,0,0,20"
+         SelectionChanged="DecksListBox_SelectionChanged"/>
     </StackPanel>
 </UserControl>

@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="QuizIt" Height="600" Width="900">
     <Grid Margin="0">
-        
+
         <Grid.RowDefinitions>
             <RowDefinition Height="60" />
             <RowDefinition Height="*" />
@@ -26,23 +26,14 @@
         </DockPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Background="#34495E">
-            <Button Content="📚 Moje talie" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="📚 Moje fiszki" Style="{StaticResource SidebarButtonStyle}" Click="ShowDecksView_Click"/>
             <Button Content="▶️ Rozpocznij quiz" Style="{StaticResource SidebarButtonStyle}"/>
             <Button Content="📈 Historia wyników" Style="{StaticResource SidebarButtonStyle}"/>
-            <Button Content="➕ Dodaj nową talię" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="➕ Dodaj nową talię" Style="{StaticResource SidebarButtonStyle}" Click="ShowAddDeckView_Click"/>
             <Button Content="⚙️ Ustawienia" Style="{StaticResource SidebarButtonStyle}"/>
         </StackPanel>
 
-        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
-            <StackPanel>
-                <TextBlock Text="👋 Cześć, Bartek!" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
-                <TextBlock Text="Gotowy na naukę?" FontSize="16" Margin="0,0,0,20"/>
+        <ContentControl x:Name="MainContentControl" Grid.Row="1" Grid.Column="1" Margin="10"/>
 
-                <TextBlock Text="📂 Twoje talie:" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
-
-                <ListBox ItemsSource="{Binding Decks}" FontSize="16" Margin="0,0,0,20"/>
-            </StackPanel>
-        </Grid>
-        
     </Grid>
 </Window>

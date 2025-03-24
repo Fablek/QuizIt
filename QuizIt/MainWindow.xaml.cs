@@ -1,4 +1,5 @@
-﻿using System.Collections.ObjectModel;
+﻿using QuizIt.ViewModels;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using QuizIt.Models;
+using QuizIt.Views;
 
 namespace QuizIt;
 
@@ -17,19 +20,28 @@ namespace QuizIt;
 /// </summary>
 public partial class MainWindow : Window
 {
+    private MainViewModel _mainViewModel;
     public ObservableCollection<Deck> Decks { get; set; }
 
     public MainWindow()
     {
         InitializeComponent();
 
-        Decks = new ObservableCollection<Deck>
-        {
-            new Deck { Name = "Angielski", FlashcardCount = 20 },
-            new Deck { Name = "Biologia", FlashcardCount = 15 },
-            new Deck { Name = "Geografia", FlashcardCount = 10 },
-        };
+        _mainViewModel = new MainViewModel();
+        DataContext = _mainViewModel;
 
-        DataContext = this;
+        MainContentControl.Content = new DecksView(_mainViewModel);
+    }
+
+    private void ShowDecksView_Click(object sender, RoutedEventArgs e)
+    {
+        var viewModel = DataContext as MainViewModel;
+        MainContentControl.Content = new DecksView(viewModel);
+    }
+
+    private void ShowAddDeckView_Click(object sender, RoutedEventArgs e)
+    {
+        var viewModel = DataContext as MainViewModel;
+        MainContentControl.Content = new AddDeckView(viewModel);
     }
 }

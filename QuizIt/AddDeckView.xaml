@@ -1,0 +1,12 @@
+﻿<UserControl x:Class="QuizIt.Views.AddDeckView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" Height="Auto" Width="Auto">
+    <StackPanel Margin="20">
+        <TextBlock Text="Add a new deck" FontSize="20" Margin="0,0,0,10"/>
+        <TextBox x:Name="DeckNameTextBox" Width="200" Height="30" Margin="0,0,0,10"/>
+        <Button Content="Add" Width="100" Click="AddButton_Click"/>
+    </StackPanel>
+</UserControl>

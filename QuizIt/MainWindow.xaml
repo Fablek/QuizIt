@@ -26,12 +26,27 @@
         </DockPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0" Background="#34495E">
-            <Button Content="📚 Moje talie"/>
-            <Button Content="▶️ Rozpocznij quiz"/>
-            <Button Content="📈 Historia wyników"/>
-            <Button Content="➕ Dodaj nową talię"/>
-            <Button Content="⚙️ Ustawienia"/>
+            <Button Content="📚 Moje talie" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="▶️ Rozpocznij quiz" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="📈 Historia wyników" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="➕ Dodaj nową talię" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="⚙️ Ustawienia" Style="{StaticResource SidebarButtonStyle}"/>
         </StackPanel>
 
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <StackPanel>
+                <TextBlock Text="👋 Cześć, Bartek!" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="Gotowy na naukę?" FontSize="16" Margin="0,0,0,20"/>
+
+                <TextBlock Text="📂 Twoje talie:" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
+
+                <ListBox>
+                    <ListBoxItem Content="▸ Angielski – 20 fiszek"/>
+                    <ListBoxItem Content="▸ Biologia – 15 fiszek"/>
+                    <ListBoxItem Content="▸ Geografia – 10 fiszek"/>
+                </ListBox>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Window>

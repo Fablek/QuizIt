@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.ObjectModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -16,8 +17,19 @@ namespace QuizIt;
 /// </summary>
 public partial class MainWindow : Window
 {
+    public ObservableCollection<Deck> Decks { get; set; }
+
     public MainWindow()
     {
         InitializeComponent();
+
+        Decks = new ObservableCollection<Deck>
+        {
+            new Deck { Name = "Angielski", FlashcardCount = 20 },
+            new Deck { Name = "Biologia", FlashcardCount = 15 },
+            new Deck { Name = "Geografia", FlashcardCount = 10 },
+        };
+
+        DataContext = this;
     }
 }

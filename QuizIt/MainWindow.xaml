@@ -40,11 +40,7 @@
 
                 <TextBlock Text="📂 Twoje talie:" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>
 
-                <ListBox>
-                    <ListBoxItem Content="▸ Angielski – 20 fiszek"/>
-                    <ListBoxItem Content="▸ Biologia – 15 fiszek"/>
-                    <ListBoxItem Content="▸ Geografia – 10 fiszek"/>
-                </ListBox>
+                <ListBox ItemsSource="{Binding Decks}" FontSize="16" Margin="0,0,0,20"/>
             </StackPanel>
         </Grid>
         

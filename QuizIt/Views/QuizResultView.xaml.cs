@@ -1,4 +1,5 @@
-﻿using System;
+﻿using QuizIt.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,10 +18,26 @@ namespace QuizIt.Views
 {
     public partial class QuizResultView : UserControl
     {
-        public QuizResultView(int score, int total)
+        private readonly Flashcard _flashcard;
+
+        public QuizResultView(int score, int total, Flashcard flashcard)
         {
             InitializeComponent();
             ResultText.Text = $"Twój wynik: {score} / {total}";
+            _flashcard = flashcard;
+        }
+
+        private void RestartQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            var main = Application.Current.MainWindow as MainWindow;
+            main.MainContentControl.Content = new QuizView(_flashcard);
+        }
+
+        private void ReturnToMenu_Click(object sender, RoutedEventArgs e)
+        {
+            var main = Application.Current.MainWindow as MainWindow;
+            var vm = main.DataContext as ViewModels.MainViewModel;
+            main.MainContentControl.Content = new DecksView(vm);
         }
     }
 }

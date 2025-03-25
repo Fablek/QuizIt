@@ -4,7 +4,10 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBlock Text="Quiz zakończony!" FontSize="26" FontWeight="Bold" Margin="0,0,0,10" TextAlignment="Center"/>
-            <TextBlock x:Name="ResultText" FontSize="20" FontWeight="SemiBold" Foreground="Green" TextAlignment="Center"/>
+            <TextBlock x:Name="ResultText" FontSize="20" FontWeight="SemiBold" Foreground="Green" TextAlignment="Center" Margin="0,0,0,20"/>
+
+            <Button Content="🔁 Zacznij ponownie" Click="RestartQuiz_Click" Width="200" Margin="0,0,0,10"/>
+            <Button Content="🏠 Powrót do menu" Click="ReturnToMenu_Click" Width="200"/>
         </StackPanel>
     </Grid>
 </UserControl>

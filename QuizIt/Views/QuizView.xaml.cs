@@ -34,7 +34,7 @@ namespace QuizIt.Views
             if (_currentIndex >= _flashcard.Questions.Count)
             {
                 var mainWindow = Application.Current.MainWindow as MainWindow;
-                mainWindow.MainContentControl.Content = new QuizResultView(_score, _flashcard.Questions.Count);
+                mainWindow.MainContentControl.Content = new QuizResultView(_score, _flashcard.Questions.Count, _flashcard);
                 return;
             }
 

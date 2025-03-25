@@ -33,6 +33,20 @@ public partial class MainWindow : Window
         MainContentControl.Content = new DecksView(_mainViewModel);
     }
 
+    private void StartQuiz_Click(object sender, RoutedEventArgs e)
+    {
+        if (DataContext is MainViewModel vm && vm.Decks.Count > 0)
+        {
+            var selectedDeck = vm.Decks[0];
+            MainContentControl.Content = new SelectQuizView(selectedDeck);
+        }
+        else
+        {
+            MessageBox.Show("Brak talii do rozpoczęcia quizu.");
+        }
+    }
+
+
     private void ShowDecksView_Click(object sender, RoutedEventArgs e)
     {
         var viewModel = DataContext as MainViewModel;

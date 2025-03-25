@@ -33,7 +33,8 @@ namespace QuizIt.Views
         {
             if (_currentIndex >= _flashcard.Questions.Count)
             {
-                MessageBox.Show($"Koniec! Twój wynik: {_score} / {_flashcard.Questions.Count}");
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                mainWindow.MainContentControl.Content = new QuizResultView(_score, _flashcard.Questions.Count);
                 return;
             }
 

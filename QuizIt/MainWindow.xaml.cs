@@ -27,6 +27,14 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
 
+        if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Username))
+        {
+            Properties.Settings.Default.Username = Environment.UserName;
+            Properties.Settings.Default.Save();
+        }
+
+        ((App)Application.Current).ApplyTheme(Properties.Settings.Default.DarkMode);
+
         _mainViewModel = new MainViewModel();
         DataContext = _mainViewModel;
 
@@ -57,5 +65,10 @@ public partial class MainWindow : Window
     {
         var viewModel = DataContext as MainViewModel;
         MainContentControl.Content = new AddDeckView(viewModel);
+    }
+
+    private void ShowSettingsView_Click(object sender, RoutedEventArgs e)
+    {
+        MainContentControl.Content = new SettingsView();
     }
 }

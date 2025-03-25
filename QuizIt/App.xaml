@@ -6,6 +6,29 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
+            <SolidColorBrush x:Key="ForegroundColor" Color="Black"/>
+
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+            </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+                <Setter Property="BorderBrush" Value="#999"/>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+                <Setter Property="BorderBrush" Value="#999"/>
+            </Style>
+
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            </Style>
+
             <Style x:Key="SidebarButtonStyle" TargetType="Button">
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Background" Value="Transparent"/>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Height="Auto" Width="Auto">
     <StackPanel>
-        <TextBlock Text="👋 Cześć, Bartek!" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
+        <TextBlock Text="{Binding Greeting}" FontSize="24" FontWeight="Bold" Margin="0,0,0,10"/>
         <TextBlock Text="Gotowy na naukę?" FontSize="16" Margin="0,0,0,20"/>
 
         <TextBlock Text="📂 Twoje fiszki:" FontSize="18" FontWeight="SemiBold" Margin="0,0,0,10"/>

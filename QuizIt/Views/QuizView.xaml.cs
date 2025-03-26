@@ -33,7 +33,19 @@ namespace QuizIt.Views
         {
             if (_currentIndex >= _flashcard.Questions.Count)
             {
+                var result = new QuizResult
+                {
+                    DeckName = _flashcard.ParentDeckName ?? "Brak nazwy talii",
+                    FlashcardTitle = _flashcard.Title,
+                    Score = _score,
+                    Total = _flashcard.Questions.Count,
+                    Date = DateTime.Now
+                };
+
                 var mainWindow = Application.Current.MainWindow as MainWindow;
+                var viewModel = mainWindow.DataContext as ViewModels.MainViewModel;
+                viewModel.Results.Add(result);
+
                 mainWindow.MainContentControl.Content = new QuizResultView(_score, _flashcard.Questions.Count, _flashcard);
                 return;
             }

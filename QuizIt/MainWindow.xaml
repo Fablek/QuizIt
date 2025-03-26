@@ -28,7 +28,7 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Background="#34495E">
             <Button Content="📚 Moje fiszki" Style="{StaticResource SidebarButtonStyle}" Click="ShowDecksView_Click"/>
             <Button Content="▶️ Rozpocznij quiz" Style="{StaticResource SidebarButtonStyle}" Click="StartQuiz_Click"/>
-            <Button Content="📈 Historia wyników" Style="{StaticResource SidebarButtonStyle}"/>
+            <Button Content="📈 Historia wyników" Style="{StaticResource SidebarButtonStyle}" Click="ShowResultsView_Click"/>
             <Button Content="➕ Dodaj nową talię" Style="{StaticResource SidebarButtonStyle}" Click="ShowAddDeckView_Click"/>
             <Button Content="⚙️ Ustawienia" Style="{StaticResource SidebarButtonStyle}" Click="ShowSettingsView_Click"/>
         </StackPanel>

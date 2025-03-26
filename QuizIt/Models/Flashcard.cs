@@ -11,6 +11,7 @@ namespace QuizIt.Models
     {
         public string Title { get; set; }
         public ObservableCollection<FlashcardQuestion> Questions { get; set; } = new();
+        public string ParentDeckName { get; set; }
 
         public override string ToString() => Title;
     }

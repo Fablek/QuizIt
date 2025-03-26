@@ -54,6 +54,10 @@ public partial class MainWindow : Window
         }
     }
 
+    private void ShowResultsView_Click(object sender, RoutedEventArgs e)
+    {
+        MainContentControl.Content = new ResultsView();
+    }
 
     private void ShowDecksView_Click(object sender, RoutedEventArgs e)
     {

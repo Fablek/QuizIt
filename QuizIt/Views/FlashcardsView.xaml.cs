@@ -32,7 +32,7 @@ namespace QuizIt.Views
             string title = NewFlashcardTitleBox.Text.Trim();
             if (!string.IsNullOrEmpty(title))
             {
-                _deck.Flashcards.Add(new Flashcard { Title = title });
+                _deck.Flashcards.Add(new Flashcard { Title = title, ParentDeckName = _deck.Name });
                 NewFlashcardTitleBox.Text = "";
             }
         }

@@ -12,6 +12,7 @@ namespace QuizIt.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Deck> Decks { get; set; } = new();
+        public ObservableCollection<QuizResult> Results { get; set; }
         public string Username => "👤 " + Properties.Settings.Default.Username;
         public string Greeting => $"👋 Cześć, {Properties.Settings.Default.Username}!";
 
@@ -23,6 +24,7 @@ namespace QuizIt.ViewModels
                 {
                     Name = name
                 });
+                Results = new ObservableCollection<QuizResult>();
             }
         }
 

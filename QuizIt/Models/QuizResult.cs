@@ -8,6 +8,7 @@ namespace QuizIt.Models
 {
     public class QuizResult
     {
+        public int Id { get; set; }
         public string DeckName { get; set; }
         public string FlashcardTitle { get; set; }
         public int Score { get; set; }

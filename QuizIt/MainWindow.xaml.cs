@@ -12,6 +12,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using QuizIt.Models;
 using QuizIt.Views;
+using QuizIt.Data;
 
 namespace QuizIt;
 
@@ -26,6 +27,11 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+
+        using (var db = new AppDbContext())
+        {
+            db.Database.EnsureCreated();
+        }
 
         if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Username))
         {

@@ -9,6 +9,7 @@ namespace QuizIt.Models
 {
     public class Deck
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public ObservableCollection<Flashcard> Flashcards { get; set; } = new();
 

@@ -14,6 +14,7 @@ namespace QuizIt.Models
 
     public class FlashcardQuestion
     {
+        public int Id { get; set; }
         public string Question { get; set; }
         public QuestionType Type { get; set; }
 

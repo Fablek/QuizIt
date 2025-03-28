@@ -31,6 +31,15 @@ namespace QuizIt.Views
 
         private void ShowQuestion()
         {
+            if (_flashcard.Questions == null || _flashcard.Questions.Count == 0)
+            {
+                MessageBox.Show("Ta fiszka nie zawiera żadnych pytań.");
+                var mainWindow = Application.Current.MainWindow as MainWindow;
+                var viewModel = mainWindow.DataContext as ViewModels.MainViewModel;
+                mainWindow.MainContentControl.Content = new DecksView(viewModel);
+                return;
+            }
+
             if (_currentIndex >= _flashcard.Questions.Count)
             {
                 var result = new QuizResult
@@ -42,10 +51,15 @@ namespace QuizIt.Views
                     Date = DateTime.Now
                 };
 
+                using (var db = new Data.AppDbContext())
+                {
+                    db.QuizResults.Add(result);
+                    db.SaveChanges();
+                }
+
                 var mainWindow = Application.Current.MainWindow as MainWindow;
                 var viewModel = mainWindow.DataContext as ViewModels.MainViewModel;
-                viewModel.Results.Add(result);
-
+                viewModel.LoadDataFromDatabase();
                 mainWindow.MainContentControl.Content = new QuizResultView(_score, _flashcard.Questions.Count, _flashcard);
                 return;
             }

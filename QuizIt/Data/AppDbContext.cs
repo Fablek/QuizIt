@@ -23,7 +23,6 @@ namespace QuizIt.Data
                 "QuizIt",
                 "quizit.db");
 
-            // Upewnij się że folder istnieje
             Directory.CreateDirectory(Path.GetDirectoryName(path));
 
             options.UseSqlite($"Data Source={path}");
@@ -33,8 +32,16 @@ namespace QuizIt.Data
         {
             modelBuilder.Entity<Flashcard>()
                 .HasMany(f => f.Questions)
-                .WithOne()
+                .WithOne(q => q.Flashcard)
+                .HasForeignKey(q => q.FlashcardId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<FlashcardQuestion>()
+                .Property(q => q.Options)
+                .HasConversion(
+                    v => string.Join(";", v),
+                    v => v.Split(';', StringSplitOptions.RemoveEmptyEntries).ToList()
+                );
         }
     }
 }

@@ -11,6 +11,8 @@ namespace QuizIt.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public int DeckId { get; set; }
+        public Deck Deck { get; set; }
         public ObservableCollection<FlashcardQuestion> Questions { get; set; } = new();
         public string ParentDeckName { get; set; }
 

@@ -31,6 +31,12 @@ namespace QuizIt.Views
         {
             if (FlashcardList.SelectedItem is Flashcard selectedFlashcard)
             {
+                if (selectedFlashcard.Questions == null || selectedFlashcard.Questions.Count == 0)
+                {
+                    MessageBox.Show("Ta fiszka nie zawiera żadnych pytań.");
+                    return;
+                }
+
                 var main = App.Current.MainWindow as MainWindow;
                 main.MainContentControl.Content = new QuizView(selectedFlashcard);
             }

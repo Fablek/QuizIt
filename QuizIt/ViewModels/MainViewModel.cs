@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using QuizIt.Models;
 using System.ComponentModel;
+using QuizIt.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuizIt.ViewModels
 {
@@ -16,15 +18,45 @@ namespace QuizIt.ViewModels
         public string Username => "👤 " + Properties.Settings.Default.Username;
         public string Greeting => $"👋 Cześć, {Properties.Settings.Default.Username}!";
 
+        public MainViewModel()
+        {
+            LoadDataFromDatabase();
+        }
+
+        public void LoadDataFromDatabase()
+        {
+            Decks.Clear();
+
+            using (var db = new AppDbContext())
+            {
+                var decks = db.Decks
+                    .Include(d => d.Flashcards)
+                    .ThenInclude(f => f.Questions)
+                    .ToList();
+
+                foreach (var deck in decks)
+                {
+                    Decks.Add(deck);
+                }
+
+                Results = new ObservableCollection<QuizResult>(db.QuizResults.ToList());
+                OnPropertyChanged(nameof(Results));
+            }
+        }
+
         public void AddDeck(string name)
         {
             if (!string.IsNullOrWhiteSpace(name))
             {
-                Decks.Add(new Deck
+                var newDeck = new Deck { Name = name };
+
+                using (var db = new AppDbContext())
                 {
-                    Name = name
-                });
-                Results = new ObservableCollection<QuizResult>();
+                    db.Decks.Add(newDeck);
+                    db.SaveChanges();
+                }
+
+                Decks.Add(newDeck);
             }
         }
 
@@ -39,6 +71,29 @@ namespace QuizIt.ViewModels
         {
             OnPropertyChanged(nameof(Username));
             OnPropertyChanged(nameof(Greeting));
+        }
+
+        public void ReloadAllData()
+        {
+            Decks.Clear();
+            Results.Clear();
+
+            using (var db = new AppDbContext())
+            {
+                var decks = db.Decks
+                    .Include(d => d.Flashcards)
+                    .ThenInclude(f => f.Questions)
+                    .ToList();
+
+                foreach (var deck in decks)
+                    Decks.Add(deck);
+
+                foreach (var result in db.QuizResults)
+                    Results.Add(result);
+            }
+
+            OnPropertyChanged(nameof(Decks));
+            OnPropertyChanged(nameof(Results));
         }
     }
 }

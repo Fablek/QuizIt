@@ -1,17 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Microsoft.EntityFrameworkCore;
+using QuizIt.Data;
 using QuizIt.Models;
 
 namespace QuizIt.Views
@@ -32,7 +24,29 @@ namespace QuizIt.Views
             string title = NewFlashcardTitleBox.Text.Trim();
             if (!string.IsNullOrEmpty(title))
             {
-                _deck.Flashcards.Add(new Flashcard { Title = title, ParentDeckName = _deck.Name });
+                var flashcard = new Flashcard
+                {
+                    Title = title,
+                    ParentDeckName = _deck.Name,
+                    DeckId = _deck.Id
+                };
+
+                using (var db = new AppDbContext())
+                {
+                    db.Flashcards.Add(flashcard);
+                    db.SaveChanges();
+                }
+
+                var main = Application.Current.MainWindow as MainWindow;
+                var viewModel = main.DataContext as ViewModels.MainViewModel;
+                viewModel.ReloadAllData();
+
+                var updatedDeck = viewModel.Decks.FirstOrDefault(d => d.Id == _deck.Id);
+                if (updatedDeck != null)
+                {
+                    main.MainContentControl.Content = new FlashcardsView(updatedDeck);
+                }
+
                 NewFlashcardTitleBox.Text = "";
             }
         }

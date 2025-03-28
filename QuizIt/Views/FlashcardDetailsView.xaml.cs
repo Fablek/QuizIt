@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System;
 using System.Collections.Generic;
 using QuizIt.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace QuizIt.Views
 {
@@ -54,52 +55,76 @@ namespace QuizIt.Views
 
             var selectedType = (QuestionTypeBox.SelectedItem as ComboBoxItem)?.Content.ToString();
 
-            if (selectedType == "TextAnswer")
+            using (var db = new Data.AppDbContext())
             {
-                string textAnswer = TextAnswerBox.Text.Trim();
-                if (string.IsNullOrWhiteSpace(textAnswer)) return;
+                var flashcardInDb = db.Flashcards
+                    .Where(f => f.Id == _flashcard.Id)
+                    .Include(f => f.Questions)
+                    .FirstOrDefault();
 
-                _flashcard.Questions.Add(new FlashcardQuestion
+                if (flashcardInDb == null)
                 {
-                    Question = question,
-                    Type = QuestionType.TextAnswer,
-                    TextAnswer = textAnswer
-                });
-
-                TextAnswerBox.Text = "";
-            }
-            else if (selectedType == "MultipleChoice")
-            {
-                var options = new List<string>
-                {
-                    OptionABox.Text.Trim(),
-                    OptionBBox.Text.Trim(),
-                    OptionCBox.Text.Trim(),
-                    OptionDBox.Text.Trim()
-                };
-
-                var filledOptions = options.Where(o => !string.IsNullOrWhiteSpace(o)).ToList();
-                if (filledOptions.Count < 2)
-                {
-                    MessageBox.Show("Wpisz przynajmniej 2 odpowiedzi.");
+                    MessageBox.Show("Nie znaleziono fiszki w bazie.");
                     return;
                 }
 
-                int correctIndex = CorrectOptionComboBox.SelectedIndex;
-
-                _flashcard.Questions.Add(new FlashcardQuestion
+                if (selectedType == "TextAnswer")
                 {
-                    Question = question,
-                    Type = QuestionType.MultipleChoice,
-                    Options = filledOptions,
-                    CorrectOptionIndex = correctIndex
-                });
+                    string textAnswer = TextAnswerBox.Text.Trim();
+                    if (string.IsNullOrWhiteSpace(textAnswer)) return;
 
-                OptionABox.Text = OptionBBox.Text = OptionCBox.Text = OptionDBox.Text = "";
-                CorrectOptionComboBox.SelectedIndex = 0;
+                    var newQuestion = new FlashcardQuestion
+                    {
+                        Question = question,
+                        Type = QuestionType.TextAnswer,
+                        TextAnswer = textAnswer,
+                        FlashcardId = _flashcard.Id // DODANE!
+                    };
+
+                    flashcardInDb.Questions.Add(newQuestion);
+                    db.SaveChanges();
+
+                    _flashcard.Questions.Add(newQuestion);
+                    TextAnswerBox.Text = "";
+                }
+                else if (selectedType == "MultipleChoice")
+                {
+                    var options = new List<string>
+                    {
+                        OptionABox.Text.Trim(),
+                        OptionBBox.Text.Trim(),
+                        OptionCBox.Text.Trim(),
+                        OptionDBox.Text.Trim()
+                    };
+
+                    var filledOptions = options.Where(o => !string.IsNullOrWhiteSpace(o)).ToList();
+                    if (filledOptions.Count < 2)
+                    {
+                        MessageBox.Show("Wpisz przynajmniej 2 odpowiedzi.");
+                        return;
+                    }
+
+                    int correctIndex = CorrectOptionComboBox.SelectedIndex;
+
+                    var newQuestion = new FlashcardQuestion
+                    {
+                        Question = question,
+                        Type = QuestionType.MultipleChoice,
+                        Options = filledOptions,
+                        CorrectOptionIndex = correctIndex,
+                        FlashcardId = _flashcard.Id // DODANE!
+                    };
+
+                    flashcardInDb.Questions.Add(newQuestion);
+                    db.SaveChanges();
+
+                    _flashcard.Questions.Add(newQuestion);
+                    OptionABox.Text = OptionBBox.Text = OptionCBox.Text = OptionDBox.Text = "";
+                    CorrectOptionComboBox.SelectedIndex = 0;
+                }
+
+                QuestionBox.Text = "";
             }
-
-            QuestionBox.Text = "";
         }
     }
 }

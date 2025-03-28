@@ -45,8 +45,7 @@ public partial class MainWindow : Window
     {
         if (DataContext is MainViewModel vm && vm.Decks.Count > 0)
         {
-            var selectedDeck = vm.Decks[0];
-            MainContentControl.Content = new SelectQuizView(selectedDeck);
+            MainContentControl.Content = new SelectDeckView(vm);
         }
         else
         {

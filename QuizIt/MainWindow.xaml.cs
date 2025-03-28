@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using QuizIt.Views;
 using QuizIt.Models;
+using static QuizIt.Data.AppDbContext;
 
 namespace QuizIt
 {
@@ -14,6 +15,8 @@ namespace QuizIt
         public MainWindow()
         {
             InitializeComponent();
+
+            DbInitializer.Initialize();
 
             if (string.IsNullOrWhiteSpace(Properties.Settings.Default.Username))
             {

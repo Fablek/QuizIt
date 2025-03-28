@@ -16,6 +16,17 @@ namespace QuizIt.Data
         public DbSet<FlashcardQuestion> FlashcardQuestions { get; set; }
         public DbSet<QuizResult> QuizResults { get; set; }
 
+        public static class DbInitializer
+        {
+            public static void Initialize()
+            {
+                using (var db = new AppDbContext())
+                {
+                    db.Database.EnsureCreated();
+                }
+            }
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             string path = System.IO.Path.Combine(

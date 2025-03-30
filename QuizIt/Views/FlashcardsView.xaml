@@ -6,10 +6,15 @@
         <TextBlock Text="{Binding Name}" FontSize="24" FontWeight="Bold"/>
         <TextBlock Text="Fiszki w tej talii:" Margin="0,10,0,5"/>
 
-        <ListBox ItemsSource="{Binding Flashcards}" MouseDoubleClick="Flashcard_DoubleClick">
+        <ListBox ItemsSource="{Binding Flashcards}" BorderThickness="0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Title}" FontSize="16"/>
+                    <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Title}" FontSize="16" Width="200" VerticalAlignment="Center"/>
+                        <Button Content="✏️ Edytuj pytania" Click="OpenFlashcard_Click" Margin="5,0"/>
+                        <Button Content="✎ Tytuł" Click="EditFlashcard_Click" Margin="5,0"/>
+                        <Button Content="🗑" Click="DeleteFlashcard_Click" Margin="5,0"/>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

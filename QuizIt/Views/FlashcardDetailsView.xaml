@@ -3,59 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <ScrollViewer>
         <StackPanel Margin="20">
-            <!-- Tytuł fiszki -->
             <TextBlock Text="{Binding Title}" FontSize="24" FontWeight="Bold"/>
             <TextBlock Text="Pytania:" Margin="10,10,0,5"/>
 
-            <!-- Lista pytań -->
             <ItemsControl ItemsSource="{Binding Questions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Margin="0,5">
                             <TextBlock Text="{Binding Question}" FontWeight="Bold"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,5">
+                                <Button Content="✏ Edytuj" Margin="0,0,5,0" Click="EditQuestion_Click" Tag="{Binding}" />
+                                <Button Content="🗑 Usuń" Click="DeleteQuestion_Click" Tag="{Binding}" />
+                            </StackPanel>
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <TextBlock Text="Dodaj pytanie:" Margin="10,20,0,5"/>
-
-            <TextBlock Text="Treść pytania:" FontWeight="Bold"/>
-            <TextBox x:Name="QuestionBox" Margin="0,0,0,10"/>
-
-            <TextBlock Text="Typ pytania:" FontWeight="Bold"/>
-            <ComboBox x:Name="QuestionTypeBox" SelectedIndex="0" SelectionChanged="QuestionTypeBox_SelectionChanged" Margin="0,0,0,10">
-                <ComboBoxItem Content="TextAnswer"/>
-                <ComboBoxItem Content="MultipleChoice"/>
-            </ComboBox>
-
-            <StackPanel x:Name="TextAnswerPanel">
-                <TextBlock Text="Odpowiedź:" FontWeight="Bold"/>
-                <TextBox x:Name="TextAnswerBox" Margin="0,0,0,10"/>
-            </StackPanel>
-
-            <StackPanel x:Name="MultipleChoicePanel" Visibility="Collapsed">
-                <TextBlock Text="Opcje odpowiedzi:" FontWeight="Bold"/>
-
-                <TextBlock Text="A:"/>
-                <TextBox x:Name="OptionABox" Margin="0,0,0,5"/>
-                <TextBlock Text="B:"/>
-                <TextBox x:Name="OptionBBox" Margin="0,0,0,5"/>
-                <TextBlock Text="C:"/>
-                <TextBox x:Name="OptionCBox" Margin="0,0,0,5"/>
-                <TextBlock Text="D:"/>
-                <TextBox x:Name="OptionDBox" Margin="0,0,0,10"/>
-
-                <TextBlock Text="Poprawna opcja:" FontWeight="Bold"/>
-                <ComboBox x:Name="CorrectOptionComboBox" SelectedIndex="0">
-                    <ComboBoxItem Content="A"/>
-                    <ComboBoxItem Content="B"/>
-                    <ComboBoxItem Content="C"/>
-                    <ComboBoxItem Content="D"/>
-                </ComboBox>
-            </StackPanel>
-
-            <Button Content="Dodaj pytanie" Click="AddQuestion_Click" Margin="0,20,0,0"/>
+            <Button Content="➕ Dodaj pytanie" Click="AddQuestion_Click" Margin="0,20,0,0"/>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

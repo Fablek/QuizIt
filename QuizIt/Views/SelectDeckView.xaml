@@ -2,8 +2,61 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuizIt.Views">
+
     <StackPanel Margin="20">
-        <TextBlock Text="Wybierz talię do rozwiązania:" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
-        <ListBox x:Name="DeckList" SelectionChanged="DeckList_SelectionChanged" DisplayMemberPath="Name"/>
+        <TextBlock Text="🗂️ Wybierz talię do rozwiązania:"
+                   FontSize="22"
+                   FontWeight="Bold"
+                   Foreground="{DynamicResource ForegroundColor}"
+                   FontFamily="Segoe UI Variable"
+                   Margin="0,0,0,20"/>
+
+        <Border Background="{DynamicResource ContentBackground}"
+                BorderBrush="#CCC"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="5">
+            <ListBox x:Name="DeckList"
+                     DisplayMemberPath="Name"
+                     SelectionChanged="DeckList_SelectionChanged"
+                     FontSize="14"
+                     Foreground="{DynamicResource ForegroundColor}"
+                     Background="Transparent"
+                     BorderThickness="0">
+
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="ListBoxItem">
+                        <Setter Property="Margin" Value="4"/>
+                        <Setter Property="Padding" Value="8"/>
+                        <Setter Property="Cursor" Value="Hand"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Setter Property="BorderBrush" Value="#AAA"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Padding="{TemplateBinding Padding}"
+                                            CornerRadius="6">
+                                        <ContentPresenter/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DDEEFF"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
+        </Border>
     </StackPanel>
 </UserControl>

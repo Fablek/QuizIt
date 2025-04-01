@@ -1,9 +1,11 @@
 ﻿using QuizIt.ViewModels;
-using System.Text;
+using System;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Interop;
 using QuizIt.Views;
-using QuizIt.Models;
 using static QuizIt.Data.AppDbContext;
 
 namespace QuizIt
@@ -32,26 +34,69 @@ namespace QuizIt
             MainContentControl.Content = new DecksView(_mainViewModel);
         }
 
-        private void StartQuiz_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            if (_mainViewModel.Decks.Count > 0)
-            {
-                MainContentControl.Content = new SelectDeckView(_mainViewModel);
-            }
-            else
-            {
-                MessageBox.Show("Brak talii do rozpoczęcia quizu.");
-            }
+            EnableAcrylicBlur();
         }
 
-        private void ShowResultsView_Click(object sender, RoutedEventArgs e)
+        private void EnableAcrylicBlur()
         {
-            MainContentControl.Content = new ResultsView();
+            var windowHelper = new WindowInteropHelper(this);
+
+            var accent = new AccentPolicy
+            {
+                AccentState = AccentState.ACCENT_ENABLE_ACRYLICBLURBEHIND,
+                AccentFlags = 2,
+                GradientColor = unchecked((int)0xE61E1E2E)
+            };
+
+            int size = Marshal.SizeOf(accent);
+            IntPtr accentPtr = Marshal.AllocHGlobal(size);
+            Marshal.StructureToPtr(accent, accentPtr, false);
+
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = size,
+                Data = accentPtr
+            };
+
+            SetWindowCompositionAttribute(windowHelper.Handle, ref data);
+            Marshal.FreeHGlobal(accentPtr);
+        }
+
+        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
+        }
+
+        private void MinimizeApp_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void CloseApp_Click(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private void ShowDecksView_Click(object sender, RoutedEventArgs e)
         {
             MainContentControl.Content = new DecksView(_mainViewModel);
+        }
+
+        private void StartQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            if (_mainViewModel.Decks.Count > 0)
+                MainContentControl.Content = new SelectDeckView(_mainViewModel);
+            else
+                MessageBox.Show("Brak talii do rozpoczęcia quizu.");
+        }
+
+        private void ShowResultsView_Click(object sender, RoutedEventArgs e)
+        {
+            MainContentControl.Content = new ResultsView();
         }
 
         private void ShowAddDeckView_Click(object sender, RoutedEventArgs e)
@@ -63,5 +108,41 @@ namespace QuizIt
         {
             MainContentControl.Content = new SettingsView();
         }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct AccentPolicy
+        {
+            public AccentState AccentState;
+            public int AccentFlags;
+            public int GradientColor;
+            public int AnimationId;
+        }
+
+        internal enum AccentState
+        {
+            ACCENT_DISABLED = 0,
+            ACCENT_ENABLE_GRADIENT = 1,
+            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
+            ACCENT_ENABLE_BLURBEHIND = 3,
+            ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
+            ACCENT_ENABLE_HOSTBACKDROP = 5,
+            ACCENT_INVALID_STATE = 6
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct WindowCompositionAttributeData
+        {
+            public WindowCompositionAttribute Attribute;
+            public IntPtr Data;
+            public int SizeOfData;
+        }
+
+        internal enum WindowCompositionAttribute
+        {
+            WCA_ACCENT_POLICY = 19
+        }
+
+        [DllImport("user32.dll")]
+        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
     }
 }

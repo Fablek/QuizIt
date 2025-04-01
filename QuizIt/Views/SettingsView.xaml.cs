@@ -23,7 +23,6 @@ namespace QuizIt.Views
             InitializeComponent();
             UsernameBox.Text = Properties.Settings.Default.Username;
             DarkModeCheckBox.IsChecked = Properties.Settings.Default.DarkMode;
-            ApplyTheme(Properties.Settings.Default.DarkMode);
         }
 
         private void SaveSettings_Click(object sender, RoutedEventArgs e)
@@ -45,24 +44,12 @@ namespace QuizIt.Views
             ((App)Application.Current).ApplyTheme(dark);
 
             var main = Application.Current.MainWindow as MainWindow;
-            var currentContent = main.MainContentControl.Content;
-            main.MainContentControl.Content = null;
-            main.MainContentControl.Content = currentContent;
-        }
-
-        private void ApplyTheme(bool dark)
-        {
-            var app = (App)Application.Current;
-
-            if (dark)
+            if (main != null)
             {
-                app.Resources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(30, 30, 30));
-                app.Resources["ForegroundColor"] = Brushes.White;
-            }
-            else
-            {
-                app.Resources["BackgroundColor"] = Brushes.White;
-                app.Resources["ForegroundColor"] = Brushes.Black;
+                var vm = main.DataContext as MainViewModel;
+                var content = main.MainContentControl.Content;
+                main.MainContentControl.Content = null;
+                main.MainContentControl.Content = content;
             }
         }
     }

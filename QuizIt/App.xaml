@@ -6,57 +6,185 @@
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
-            <SolidColorBrush x:Key="BackgroundColor" Color="White"/>
-            <SolidColorBrush x:Key="ForegroundColor" Color="Black"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/LightTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-            <Style TargetType="TextBlock">
+            <SolidColorBrush x:Key="PrimaryColor" Color="#4CAF50"/>
+            <SolidColorBrush x:Key="PrimaryColorDark" Color="#388E3C"/>
+            <SolidColorBrush x:Key="PrimaryColorLight" Color="#45A049"/>
+
+            <Style TargetType="TextBlock" x:Key="Header1">
+                <Setter Property="FontSize" Value="24"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="FontFamily" Value="Segoe UI Variable"/>
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
             </Style>
 
-            <Style TargetType="TextBox">
+            <Style TargetType="TextBlock" x:Key="SubHeader">
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="Margin" Value="0,5,0,15"/>
+                <Setter Property="FontFamily" Value="Segoe UI Variable"/>
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
-                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
-                <Setter Property="BorderBrush" Value="#999"/>
             </Style>
 
-            <Style TargetType="Button">
+            <Style x:Key="SidebarNavButton" TargetType="Button">
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}"/>
-                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
-                <Setter Property="BorderBrush" Value="#999"/>
-            </Style>
-
-            <Style TargetType="Grid">
-                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
-            </Style>
-
-            <Style x:Key="SidebarButtonStyle" TargetType="Button">
-                <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="FontSize" Value="16"/>
-                <Setter Property="Margin" Value="10 5"/>
+                <Setter Property="Padding" Value="10,6"/>
+                <Setter Property="Margin" Value="5 4"/>
                 <Setter Property="HorizontalContentAlignment" Value="Left"/>
-                <Setter Property="Padding" Value="10"/>
-                <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}"
-                            Padding="{TemplateBinding Padding}"
-                            CornerRadius="5"
-                            SnapsToDevicePixels="True">
-                                <ContentPresenter />
+                            <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" CornerRadius="6">
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#3D566E"/>
+                        <Setter Property="Background" Value="#DDEEFF"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            
+
+            <Style x:Key="WindowControlButtonStyle" TargetType="Button">
+                <Setter Property="Width" Value="32"/>
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontFamily" Value="Segoe UI Variable"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="Transparent"/>
+                <Setter Property="BorderBrush" Value="Transparent"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="4">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#444"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ThemeButton" TargetType="Button">
+                <Setter Property="Foreground" Value="#ffffff" />
+                <Setter Property="Background" Value="#43404b" />
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontFamily" Value="Segoe UI Variable" />
+                <Setter Property="Padding" Value="10,6" />
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="BorderThickness" Value="0" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="SnapsToDevicePixels" Value="True" />
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="4" ShadowDepth="1" Opacity="0.1" />
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"
+                        CornerRadius="6"
+                        Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#2b2930" />
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#2b2930" />
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="#AAA" />
+                        <Setter Property="Foreground" Value="#444" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ThemeButtonSecondary" TargetType="Button" BasedOn="{StaticResource ThemeButton}">
+                <Setter Property="Background" Value="#E0E0E0"/>
+                <Setter Property="Foreground" Value="#1E1E1E"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#D0D0D0"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style x:Key="ThemeButtonDanger" TargetType="Button" BasedOn="{StaticResource ThemeButton}">
+                <Setter Property="Background" Value="#D9534F"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#C9302C"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="#AC2925"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="{StaticResource PrimaryColor}"/>
+                <Setter Property="FontWeight" Value="SemiBold"/>
+                <Setter Property="FontSize" Value="14"/>
+                <Setter Property="FontFamily" Value="Segoe UI Variable"/>
+                <Setter Property="Padding" Value="10,6"/>
+                <Setter Property="Margin" Value="5"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="Effect">
+                    <Setter.Value>
+                        <DropShadowEffect BlurRadius="5" ShadowDepth="2" Opacity="0.2"/>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="{TemplateBinding Padding}">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColorLight}"/>
+                    </Trigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter Property="Background" Value="{StaticResource PrimaryColorDark}"/>
+                    </Trigger>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Background" Value="#CCC"/>
+                        <Setter Property="Foreground" Value="#666"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <Style TargetType="Grid">
+                <Setter Property="Background" Value="{DynamicResource BackgroundColor}"/>
+            </Style>
+
             <converters:ZeroToVisibilityConverter x:Key="ZeroToVisibilityConverter"/>
             <converters:NotZeroToVisibilityConverter x:Key="NotZeroToVisibilityConverter"/>
         </ResourceDictionary>

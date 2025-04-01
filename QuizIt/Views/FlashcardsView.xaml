@@ -2,27 +2,94 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuizIt.Views">
-    <StackPanel Margin="20">
-        <TextBlock Text="{Binding Name}" FontSize="24" FontWeight="Bold"/>
-        <TextBlock Text="Fiszki w tej talii:" Margin="0,10,0,5"/>
 
-        <ListBox ItemsSource="{Binding Flashcards}" BorderThickness="0">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal" Margin="5" VerticalAlignment="Center">
-                        <TextBlock Text="{Binding Title}" FontSize="16" Width="200" VerticalAlignment="Center"/>
-                        <Button Content="✏️ Edytuj pytania" Click="OpenFlashcard_Click" Margin="5,0"/>
-                        <Button Content="✎ Tytuł" Click="EditFlashcard_Click" Margin="5,0"/>
-                        <Button Content="🗑" Click="DeleteFlashcard_Click" Margin="5,0"/>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+    <ScrollViewer>
+        <Border Margin="20"
+                Background="{DynamicResource ContentBackground}"
+                BorderBrush="#CCC"
+                BorderThickness="1"
+                CornerRadius="10"
+                Padding="20">
 
-        <TextBlock Text="Dodaj nową fiszkę:" Margin="10,20,0,5"/>
-        <StackPanel Orientation="Horizontal">
-            <TextBox x:Name="NewFlashcardTitleBox" Width="200" Margin="0,0,10,0"/>
-            <Button Content="Dodaj" Click="AddFlashcard_Click"/>
-        </StackPanel>
-    </StackPanel>
+            <StackPanel>
+
+                <TextBlock Text="{Binding Name}"
+                           Style="{StaticResource Header1}"
+                           Margin="0,0,0,20"/>
+
+                <TextBlock Text="📋 Fiszki w tej talii:"
+                           Style="{StaticResource SubHeader}"/>
+
+                <ItemsControl ItemsSource="{Binding Flashcards}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource BackgroundColor}"
+                                    BorderBrush="#CCC"
+                                    BorderThickness="1"
+                                    CornerRadius="6"
+                                    Margin="0,5"
+                                    Padding="10">
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding Title}"
+                                               FontSize="16"
+                                               FontWeight="SemiBold"
+                                               Foreground="{DynamicResource ForegroundColor}"
+                                               Width="220"
+                                               VerticalAlignment="Center"/>
+
+                                    <Button Content="✏️ Pytania"
+                                            Click="OpenFlashcard_Click"
+                                            Tag="{Binding}"
+                                            Style="{StaticResource ThemeButton}"
+                                            Width="100"
+                                            Height="36"
+                                            Margin="10,0,0,0"/>
+
+                                    <Button Content="✎ Tytuł"
+                                            Click="EditFlashcard_Click"
+                                            Tag="{Binding}"
+                                            Style="{StaticResource ThemeButton}"
+                                            Width="100"
+                                            Height="36"
+                                            Margin="10,0,0,0"/>
+
+                                    <Button Content="🗑"
+                                            Click="DeleteFlashcard_Click"
+                                            Tag="{Binding}"
+                                            Style="{StaticResource ThemeButtonDanger}"
+                                            Width="50"
+                                            Height="36"
+                                            Margin="10,0,0,0"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <!-- Dodawanie nowej fiszki -->
+                <TextBlock Text="➕ Dodaj nową fiszkę:"
+                           Style="{StaticResource SubHeader}"
+                           Margin="0,20,0,5"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="NewFlashcardTitleBox"
+                             Width="250"
+                             Height="30"
+                             FontSize="14"
+                             FontFamily="Segoe UI Variable"
+                             Background="{DynamicResource BackgroundColor}"
+                             Foreground="{DynamicResource ForegroundColor}"
+                             BorderBrush="#CCC"
+                             Margin="0,0,10,0"/>
+
+                    <Button Content="Dodaj"
+                            Click="AddFlashcard_Click"
+                            Style="{StaticResource ThemeButton}"
+                            Width="100"
+                            Height="30"/>
+                </StackPanel>
+
+            </StackPanel>
+        </Border>
+    </ScrollViewer>
 </UserControl>

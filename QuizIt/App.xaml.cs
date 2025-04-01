@@ -14,17 +14,21 @@ public partial class App : Application
         ApplyTheme(Settings.Default.DarkMode);
     }
 
-    public void ApplyTheme(bool dark)
+    public void ApplyTheme(bool darkMode)
     {
-        if (dark)
-        {
-            Resources["BackgroundColor"] = new SolidColorBrush(Color.FromRgb(30, 30, 30));
-            Resources["ForegroundColor"] = Brushes.White;
-        }
+        var dict = new ResourceDictionary();
+
+        if (darkMode)
+            dict.Source = new Uri("Themes/DarkTheme.xaml", UriKind.Relative);
         else
-        {
-            Resources["BackgroundColor"] = Brushes.White;
-            Resources["ForegroundColor"] = Brushes.Black;
-        }
+            dict.Source = new Uri("Themes/LightTheme.xaml", UriKind.Relative);
+
+        var oldDict = Resources.MergedDictionaries
+            .FirstOrDefault(d => d.Source != null && d.Source.OriginalString.Contains("Theme"));
+
+        if (oldDict != null)
+            Resources.MergedDictionaries.Remove(oldDict);
+
+        Resources.MergedDictionaries.Add(dict);
     }
 }

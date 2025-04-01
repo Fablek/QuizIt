@@ -2,16 +2,45 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:QuizIt">
-    <StackPanel Margin="20" VerticalAlignment="Top">
-        <TextBlock Text="⚙️ Ustawienia" FontSize="24" FontWeight="Bold" Margin="0,0,0,20"/>
+    <Border Margin="20"
+            Background="{DynamicResource ContentBackground}"
+            BorderBrush="#CCC"
+            BorderThickness="1"
+            CornerRadius="10"
+            Padding="20">
 
-        <TextBlock Text="Imię użytkownika:"/>
-        <TextBox x:Name="UsernameBox" Width="200" Margin="0,5,0,15"/>
+        <StackPanel>
+            <TextBlock Text="⚙️ Ustawienia"
+                       Style="{StaticResource Header1}"
+                       Margin="0,0,0,20"/>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-            <CheckBox x:Name="DarkModeCheckBox" Content="Włącz tryb ciemny" Checked="DarkModeChanged" Unchecked="DarkModeChanged"/>
+            <TextBlock Text="Imię użytkownika:"
+                       Foreground="{DynamicResource ForegroundColor}"
+                       FontSize="14"
+                       FontFamily="Segoe UI Variable"/>
+            <TextBox x:Name="UsernameBox"
+                     Margin="0,5,0,15"
+                     Height="30"
+                     FontSize="14"
+                     FontFamily="Segoe UI Variable"
+                     Background="{DynamicResource BackgroundColor}"
+                     Foreground="{DynamicResource ForegroundColor}"
+                     BorderBrush="#CCC"
+                     BorderThickness="1"/>
+
+            <CheckBox x:Name="DarkModeCheckBox"
+                      Content="Włącz tryb ciemny"
+                      Cursor="Hand"
+                      Margin="0,5,0,0"
+                      FontSize="14"
+                      FontFamily="Segoe UI Variable"
+                      Foreground="{DynamicResource ForegroundColor}"
+                      Click="DarkModeChanged"/>
+
+            <Button Content="Zapisz"
+                    Width="120"
+                    Margin="0,20,0,0"
+                    Style="{StaticResource ThemeButton}" />
         </StackPanel>
-
-        <Button Content="Zapisz" Click="SaveSettings_Click" Width="100" Margin="0,20,0,0"/>
-    </StackPanel>
+    </Border>
 </UserControl>

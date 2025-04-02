@@ -16,9 +16,6 @@ using QuizIt.ViewModels;
 
 namespace QuizIt.Views
 {
-    /// <summary>
-    /// Logika interakcji dla klasy AddDeckView.xaml
-    /// </summary>
     public partial class AddDeckView : UserControl
     {
         public AddDeckView(MainViewModel viewModel)

@@ -29,6 +29,7 @@
                        Foreground="{DynamicResource ForegroundColor}"
                        FontSize="14"/>
             <ComboBox x:Name="QuestionTypeBox"
+                      SelectedIndex="0"
                       SelectionChanged="QuestionTypeBox_SelectionChanged"
                       Margin="0,5,0,15"
                       FontSize="14"
@@ -40,7 +41,6 @@
                 <ComboBoxItem Content="MultipleChoice"/>
             </ComboBox>
 
-            <!-- TextAnswer -->
             <StackPanel x:Name="TextAnswerPanel" Visibility="Visible">
                 <TextBlock Text="Odpowiedź:"
                            Foreground="{DynamicResource ForegroundColor}"

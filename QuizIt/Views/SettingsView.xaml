@@ -38,9 +38,10 @@
                       Click="DarkModeChanged"/>
 
             <Button Content="Zapisz"
-                    Width="120"
-                    Margin="0,20,0,0"
-                    Style="{StaticResource ThemeButton}" />
+                Width="120"
+                Margin="0,20,0,0"
+                Style="{StaticResource ThemeButton}"
+                Click="SaveSettings_Click"/>
         </StackPanel>
     </Border>
 </UserControl>

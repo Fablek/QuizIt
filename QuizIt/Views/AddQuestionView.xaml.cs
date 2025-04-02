@@ -16,11 +16,27 @@ namespace QuizIt.Views
         {
             InitializeComponent();
             _flashcard = flashcard;
+
+            Dispatcher.InvokeAsync(() =>
+            {
+                QuestionTypeBox.SelectedIndex = 0;
+            });
+        }
+
+        private void AddQuestionView_Loaded(object sender, RoutedEventArgs e)
+        {
+            QuestionTypeBox.SelectedIndex = 0;
+            QuestionTypeBox_SelectionChanged(null, null);
         }
 
         private void QuestionTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var selected = (QuestionTypeBox.SelectedItem as ComboBoxItem)?.Content.ToString();
+            if (TextAnswerPanel == null || MultipleChoicePanel == null) return;
+
+            var selectedItem = QuestionTypeBox.SelectedItem as ComboBoxItem;
+            if (selectedItem == null) return;
+
+            var selected = selectedItem.Content?.ToString() ?? string.Empty;
             TextAnswerPanel.Visibility = selected == "TextAnswer" ? Visibility.Visible : Visibility.Collapsed;
             MultipleChoicePanel.Visibility = selected == "MultipleChoice" ? Visibility.Visible : Visibility.Collapsed;
         }
@@ -59,12 +75,12 @@ namespace QuizIt.Views
                 else
                 {
                     var options = new List<string>
-            {
-                OptionABox.Text.Trim(),
-                OptionBBox.Text.Trim(),
-                OptionCBox.Text.Trim(),
-                OptionDBox.Text.Trim()
-            }.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+                {
+                    OptionABox.Text.Trim(),
+                    OptionBBox.Text.Trim(),
+                    OptionCBox.Text.Trim(),
+                    OptionDBox.Text.Trim()
+                }.Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
 
                     if (options.Count < 2)
                     {
@@ -82,11 +98,9 @@ namespace QuizIt.Views
                     };
                 }
 
-                // Zapis do bazy
                 db.FlashcardQuestions.Add(newQuestion);
                 db.SaveChanges();
 
-                // Dodanie do aktualnej fiszki w pamięci
                 _flashcard.Questions.Add(newQuestion);
             }
 

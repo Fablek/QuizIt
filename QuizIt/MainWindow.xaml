@@ -33,13 +33,14 @@
                            Foreground="{DynamicResource SidebarForegroundColor}" />
 
                 <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Center"
-                            Margin="0,0,10,0">
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Margin="0,0,10,0">
                     <TextBlock Text="{Binding Username}"
-                               Foreground="{DynamicResource ForegroundColor}"
-                               VerticalAlignment="Center"
-                               Margin="0,0,10,0" />
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"
+                       FontWeight="SemiBold"/>
                     <Button Content="—" Click="MinimizeApp_Click" Style="{StaticResource WindowControlButtonStyle}" />
                     <Button Content="✕" Click="CloseApp_Click" Style="{StaticResource WindowControlButtonStyle}" />
                 </StackPanel>

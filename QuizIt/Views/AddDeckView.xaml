@@ -32,8 +32,9 @@
                      Foreground="Black"/>
 
             <Button Content="Dodaj"
-                Width="120"
-                Style="{StaticResource ThemeButton}" />
+            Width="120"
+            Style="{StaticResource ThemeButton}"
+            Click="AddButton_Click" />
         </StackPanel>
     </Border>
 </UserControl>

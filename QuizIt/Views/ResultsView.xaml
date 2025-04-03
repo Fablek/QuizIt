@@ -4,7 +4,10 @@
              xmlns:views="clr-namespace:QuizIt.Views"
              xmlns:local="clr-namespace:QuizIt">
     <Grid Background="{DynamicResource BackgroundColor}">
-        <TabControl Margin="10">
+        <TabControl Margin="10"
+            Background="{DynamicResource ContentBackground}"
+            Foreground="{DynamicResource ForegroundColor}"
+            BorderBrush="Transparent">
             <TabItem Header="📄 Historia wyników">
                 <views:HistoryView />
             </TabItem>

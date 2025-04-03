@@ -71,7 +71,7 @@ namespace QuizIt.Views
                     {
                         MinLimit = 0,
                         MaxLimit = 100,
-                        Name = "Skuteczność (%)"
+                        Name = "Skuteczność (%)",
                     }
                 };
 

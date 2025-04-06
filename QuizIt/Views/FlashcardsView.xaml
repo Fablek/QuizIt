@@ -13,9 +13,25 @@
 
             <StackPanel>
 
-                <TextBlock Text="{Binding Name}"
-                           Style="{StaticResource Header1}"
-                           Margin="0,0,0,20"/>
+                <Grid Background="Transparent" Margin="0,0,0,20">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="{Binding Name}"
+                       Style="{StaticResource Header1}"
+                       VerticalAlignment="Bottom" />
+
+                    <Button Content="🗑 Usuń talię"
+                        Click="DeleteDeck_Click"
+                        Style="{StaticResource ThemeButtonDanger}"
+                        Width="120"
+                        Height="32"
+                        Grid.Column="1"
+                        Margin="10,0,0,0"
+                        VerticalAlignment="Bottom" />
+                </Grid>
 
                 <TextBlock Text="📋 Fiszki w tej talii:"
                            Style="{StaticResource SubHeader}"/>
@@ -66,7 +82,6 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <!-- Dodawanie nowej fiszki -->
                 <TextBlock Text="➕ Dodaj nową fiszkę:"
                            Style="{StaticResource SubHeader}"
                            Margin="0,20,0,5"/>
